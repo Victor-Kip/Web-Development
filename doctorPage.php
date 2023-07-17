@@ -87,6 +87,94 @@ if ($_SESSION['loggedIn']) : ?>
         }
         ?>
         </form>
+        <h3>Add a prescription</h3>
+        <form method="post" action="">
+            <p> <label for="ConsultationID">Consltation id:</label>
+                <input type="text" name="consultationid" id="ConsultationID">
+            </p>
+            <p>Enter the following details about the prescription</p>
+            <p><label for="drugName">Drug Name:</label>
+                <input type="text" name="drugName[]" id="drugName" required>
+
+                <label for="dosage">Dosage:</label>
+                <input type="text" name="dosage[]" id="dosage">
+
+                <label for="duration">Duration:</label>
+                <input type="text" name="duration[]" id="duration">
+            </p>
+            <p>
+                <label for="drugName">Drug Name:</label>
+                <input type="text" name="drugName[]" id="drugName" required>
+
+                <label for="dosage">Dosage:</label>
+                <input type="text" name="dosage[]" id="dosage">
+
+                <label for="duration">Duration:</label>
+                <input type="text" name="duration[]" id="duration">
+            </p>
+            <p>
+                <label for="drugName">Drug Name:</label>
+                <input type="text" name="drugName[]" id="drugName" required>
+
+                <label for="dosage">Dosage:</label>
+                <input type="text" name="dosage[]" id="dosage">
+
+                <label for="duration">Duration:</label>
+                <input type="text" name="duration[]" id="duration">
+            </p>
+
+
+            <input type="submit" name="add prescription" value="add prescription">
+
+        </form>
+        <?php
+        if (
+            isset($_POST['add prescription']) && isset($_POST['consutltationid']) && isset($_POST['prescription']) && isset($_POST['drugName'])
+            && isset($_POST['dosage']) && isset($_POST['duration'])
+        ) {
+            require_once("connect.php");
+            $id = $_POST['consultationid'];
+            $today = date("Y-m-d");
+            $drugNames = $_POST['drugName'];
+            $dosages = $_POST['dosage'];
+            $durations = $_POST['duration'];
+
+            $insertprescription = "INSERT INTO prescription VALUES('$id','$today')";
+
+
+            $id = $_POST['consultationid'];
+            $today = date("Y-m-d");
+            $drugNames = $_POST['drugName'];
+            $dosages = $_POST['dosage'];
+            $durations = $_POST['duration'];
+
+
+            $insertPrescription = "INSERT INTO prescription (ConsultationId, PrescriptionDate) VALUES ('$id', '$today')";
+
+            if ($conn->query($insertPrescription)) {
+
+                $prescriptionId = $conn->insert_id;
+
+
+                for ($i = 0; $i < count($drugNames); $i++) {
+                    $drugName = $drugNames[$i];
+                    $dosage = $dosages[$i];
+                    $duration = $durations[$i];
+
+                    $insertDrugs = "INSERT INTO prescription_drug (PrescriptionID, DrugName, Dosage, Duration) 
+                        VALUES ('$prescriptionId', '$drugName', '$dosage', '$duration')";
+
+                    if ($conn->query($insertDrugs)) {
+                        echo "Drug record added successfully";
+                    } else {
+                        echo "An error occurred while adding drug details: " . $insertDrugs . $conn->error;
+                    }
+                }
+            } else {
+                echo "An error occurred while adding prescription: " . $insertPrescription . $conn->error;
+            }
+        }
+        ?>
         <h3>View History </h3>
         <form method="post" action="">
             <input type="text" name="Date" id="date">

@@ -161,11 +161,19 @@ if ($_SESSION['loggedIn']) : ?>
                     $dosage = $dosages[$i];
                     $duration = $durations[$i];
 
+                    $query = "SELECT DrugID FROM drugs WHERE drugname = $drugName";
+                    if ($result && mysqli_num_rows($result) > 0) {
+                        $row = mysqli_fetch_assoc($result);
+                        $drugId = $row['DrugID'];
+                    
+
                     $insertDrugs = "INSERT INTO prescription_drug (PrescriptionID, DrugName, Dosage, Duration) 
                         VALUES ('$prescriptionId', '$drugName', '$dosage', '$duration')";
+                        
 
-                    if ($conn->query($insertDrugs)) {
-                        echo "Drug record added successfully";
+                    $conn->query($insertDrugs);
+                }
+                        
                     } else {
                         echo "An error occurred while adding drug details: " . $insertDrugs . $conn->error;
                     }
@@ -204,6 +212,7 @@ if ($_SESSION['loggedIn']) : ?>
                         echo "<td>" . $row["ConsultationID"] . "</td>";
                         echo "<td>" . $row["PatientSSN"] . "</td>";
                         echo "<td>" . $row["Issue"] . "</td>";
+                        echo "<td>" . $row["Remark"] . "</td>";
                         echo "</tr>";
                     }
                     echo "</table>";

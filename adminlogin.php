@@ -1,39 +1,75 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Admin Login</title>
-</head>
+	<head>
+        <meta charset="utf-8">
+        <link rel="stylesheet"  href="adminlogin.css"/>
+        <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body>
-	<p>Login into your account</p>
+        <title>Administrator Login</title>
+        
 
-	<form action="adminlogin.php" method="POST">
-		
-		Admin SSN:<br>
-		<input type="number" name="AdminSSN" placeholder="Admin SSN">
-		<br>
+        <link rel="preconnect" href="http://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans: ital, wght@0,100; 0,30 0;0,400;0,500; 0,600; 0,700; 1, 100; 1, 200; 1,300; 1,400; 1,500; 1,600;1,700&family=Montserrat: wght@700; 800; 900&display=swap" 
+         rel="stylesheet">
 
-		Password:<br>
-		<input type="password" name="Password" placeholder="Password">
-		<br>
+        
+    </head>
+    
+    <body>
 
-		<button name="Submit">Submit</button>
-		<br>
+    <div class="hero">
+        <nav>
+            <h2 class="logo">Drug<span>Tool</span></h2>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <button type="button" onclick="window.location.href = 'patlogin.php';">Login</button>
+        </nav>
+    </div>
 
-		<a href="http://localhost/phpcode/WebAppProj/adminreg.php">Don't have an account? Register</a>
-	</form>
 
-</body>
+    
 
+
+    <div class="login-box">
+        <h1>Login</h1>
+
+        <form action="http://localhost/phpcode/WebAppProj/adminlogin.php" method="post">
+
+        <div class="textbox">
+        <i class="fa-solid fa-user"></i>
+        <input type="number" name="AdminSSN" placeholder="Administrator SSN" required>
+        <br>
+        </div>
+
+        <div class="textbox">
+        <i class="fa-solid fa-lock"></i>
+          <input type="password" name="Password" placeholder="Password" required>
+          <br><br>
+      
+        </div>
+          
+          <input class= "btn" type="submit" name="login" value="Login">
+        </form> 
+
+
+
+        <p><a href = "http://localhost/phpcode/WebAppProj/adminreg.php">Don't have an account? Register</a></p> 
+
+    </div>
+
+    
+    </body>
 </html>
 
 <?php
 require_once("connection.php");
 
-if(isset($_POST['Submit'])) {
+if(isset($_POST['login'])) {
     $AdminSSN = $_POST['AdminSSN'];
     $Password = $_POST['Password'];
 
@@ -45,10 +81,10 @@ if(isset($_POST['Submit'])) {
         // Login successful
         session_start();
         $_SESSION['AdminSSN'] = $AdminSSN;
-        header("Location: index.html"); // Redirect to success page
+        header("Location: viewrecords.php"); // Redirect to success page
     } else {
         // Login failed
-        echo "<script type = 'text/javascript'>alert('Invalid email or password');</script>";
+        echo "<script type = 'text/javascript'>alert('Invalid AdminSSN or password');</script>";
     }
 }
 

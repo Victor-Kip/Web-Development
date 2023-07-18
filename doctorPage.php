@@ -165,15 +165,13 @@ if ($_SESSION['loggedIn']) : ?>
                     if ($result && mysqli_num_rows($result) > 0) {
                         $row = mysqli_fetch_assoc($result);
                         $drugId = $row['DrugID'];
-                    
 
-                    $insertDrugs = "INSERT INTO prescription_drug (PrescriptionID, DrugName, Dosage, Duration) 
-                        VALUES ('$prescriptionId', '$drugName', '$dosage', '$duration')";
-                        
 
-                    $conn->query($insertDrugs);
-                }
-                        
+                        $insertDrugs = "INSERT INTO prescription_drug (PrescriptionID, DrugNumber, Dosage, Duration) 
+                        VALUES ('$prescriptionId', '$drugId', '$dosage', '$duration')";
+
+
+                        $conn->query($insertDrugs);
                     } else {
                         echo "An error occurred while adding drug details: " . $insertDrugs . $conn->error;
                     }
@@ -224,7 +222,6 @@ if ($_SESSION['loggedIn']) : ?>
         ?>
 
         <p>Edit my details? <a href="Editdoctor.html"> click here</a></p>
-        <p>Delete my account? <a href="Deletedoctor.html"> click here</a></p>
 
 
     </body>

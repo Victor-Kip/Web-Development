@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["SSN"])) {
-    $doctorSSN = $_SESSION["SSN"];
+    $pharmaSSN = $_SESSION["SSN"];
 } else {
     echo "error";
 }
@@ -26,7 +26,7 @@ if ($_SESSION['loggedIn']) : ?>
         </div>
         <?php endif; ?><?php ?>
 
-        <h1> Welcome to the doctor page, what would you like to do?.</h1>
+        <h1> Welcome to the pharmacist page, what would you like to do?.</h1>
         <h3>View Today's Submissions</h3>
         <form method="post" action="">
             <input type="submit" name="select" value="View Submissions">
@@ -48,7 +48,7 @@ if ($_SESSION['loggedIn']) : ?>
                 if ($result->numrows > 0) {
                     echo "<table>";
                     echo "<tr><th>Date</th><th>PrescriptionID</th><th>Doctor</th><th>Patient</th></tr>";
-                    echo "</table>";
+
 
                     while ($row->fetch_assoc($result)) {
                         echo "<tr>";
@@ -58,6 +58,7 @@ if ($_SESSION['loggedIn']) : ?>
                         echo "<td>" . $row['patientName'] . "</td>";
                         echo "</tr>";
                     }
+                    echo "</table>";
                 } else {
                     echo "There are no submissions today";
                 }
@@ -76,29 +77,22 @@ if ($_SESSION['loggedIn']) : ?>
         if (isset($_POST['viewdetails']) && isset($_POST['prescriptionId'])) {
             require_once('connect.php');
             $id = $_POST['prescrptionid'];
+            $query = "SELECT pd.DrugNumber, d.TradeName, pd.Dosage, pd.Duration FROM prescription_drug pd JOIN drug d ON pd.DrugNumber = d.DrugID  WHERE pd.PrescriptionID = '?'";
 
-            $viewDetails = "SELECT  DrugName,Dosage,Duration FROM prescription_Drug WHERE PrescriptionID = ?";
-            $sql = $conn->prepare($viewDetails);
-            if (!$sql) {
-                echo "An error occured " . $conn->error;
-            } else {
-                $sql->bind_param('i', $id);
-                $sql->execute();
-                $results = $sql->get_result();
-                if ($results->numrows > 0) {
-                    echo "<table>";
-                    echo "<tr><th>Drug</th><th>Amount</th><th>Duratio</th></tr>";
-                    echo "</table>";
-                    while ($row->fetch_assoc($results)) {
-                        echo "<tr>";
-                        echo "<td>" . $row['DrugName'];
-                        echo "<td>" . $row['Dosage'];
-                        echo "<td>" . $row['Duration'];
-                    }
-                } else {
-                    echo "No such record found";
+            $results = mysqli_query($conn, $query);
+            if ($results && mysqli_num_rows($results) > 0) {
+                while ($row = mysqli_fetch_assoc($results)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['drugname'] . "</td>";
+                    echo "<td>" . $row['Dosage'] . "</td>";
+                    echo "<td>" . $row['Duration'] . "</td>";
+                    echo "</tr>";
                 }
+            } else {
+                echo "<tr><td colspan='3'>No prescription data found.</td></tr>";
             }
+
+            echo "</table>";
         }
         ?>
         <h2>Dispense drugs</h2>

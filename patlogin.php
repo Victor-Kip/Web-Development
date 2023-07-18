@@ -48,7 +48,7 @@ if (isset($_POST['login'])) {
 
     <div class="hero">
         <nav>
-            <h2 class="logo">Drug<span>Tool</span></h2>
+            <h2 class="logo">Honey<span>Meds</span></h2>
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
@@ -66,7 +66,7 @@ if (isset($_POST['login'])) {
     <div class="login-box">
         <h1>Login</h1>
 
-        <form action="http://localhost/phpcode/WebAppProj/patlogin.php" method="post">
+        <form action=" patlogin.php" method="post">
 
             <div class="textbox">
                 <i class="fa-solid fa-user"></i>
@@ -86,7 +86,7 @@ if (isset($_POST['login'])) {
 
 
 
-        <p><a href="http://localhost/phpcode/WebAppProj/paregister.html">Don't have an account? Register</a></p>
+        <p><a href="paregister.html">Don't have an account? Register</a></p>
 
     </div>
 

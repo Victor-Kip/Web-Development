@@ -1,7 +1,12 @@
 <html>
-  <head></head>
-  <body>
-    <h1>Enter your details</h1>
+  <head>
+    <title>RegisterDoctor</title>
+    <link rel="stylesheet" type="text/css" href="docregister.css">
+    
+  </head>
+  
+  <body><div class = "register"> 
+    <div class = "left">
     <form action="addDoctor.php" method="post">
       <p>
         <label for="firstName">First Name:</label>
@@ -24,11 +29,14 @@
           name="socialsecuritynumber"
           id="socialSecurityNumber"
         />
+      
       </p>
       <label for="Birthdate">Date of Birth</label>
       <p>
         <input type="date" name="birthdate" id="Birthdate" />
       </p>
+      </div>
+      <div class =  "centre">
 
       <p>
         <label for="Specialty">Specialty:</label>
@@ -57,5 +65,7 @@
       </p>
       <input type="submit" value="Sign Up" />
     </form>
+  </div>
+    </div>
   </body>
 </html>

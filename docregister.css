@@ -1,0 +1,71 @@
+h1 {
+    color: brown;
+}.register{
+    display: grid;
+    grid-template-columns: 0.15fr 0.35fr;
+    grid-gap: 10px;
+}
+
+
+
+body {
+
+    height: 100vh;
+    width: 100%;
+    background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(projimage.jpg);
+
+}
+.register h2{
+    margin-bottom: 10px;
+    font-size: 40px;
+    color:rgb(48, 2, 18);
+}
+.register label{
+    font-size: 25px;
+    color :rgb(93, 20, 20);
+    font-weight: bold;
+}
+.register p{
+    font-size:25px;
+    color:whitesmoke;
+    font-weight: bold;
+
+}
+.register input[type="submit"] {
+width: 50%;
+padding: 10px;
+border: none;
+border-radius: 5px;
+background-color:rgb(128, 128, 71);
+color: #fff;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+ 
+}
+.login a{
+color:rgb(29, 29, 74);
+}
+ 
+.login input {
+width: 50%;
+padding: 8px;
+margin-bottom: 10px;
+border: 1px solid #ccc;
+border-radius: 3px;
+}
+.centre{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+.register input[type="number"],
+.register input[type="text"],
+.register input[type="date"],
+.register input[type="password"] {
+width: 50%;
+padding: 8px;
+margin-bottom: 10px;
+border: 1px solid #ccc;
+border-radius: 3px;
+}

@@ -1,0 +1,61 @@
+h1 {
+    color: brown;
+}
+
+
+
+body {
+
+    height: 100vh;
+    width: 100%;
+    background-image:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(projimage.jpg);
+
+
+
+}
+
+.login{
+      margin: auto;
+      width: 50%;
+      padding: 10px;
+
+}
+.login h2{
+    margin-bottom: 10px;
+    font-size: 40px;
+    color:rgb(48, 2, 18);
+}
+.login label{
+    font-size: 25px;
+    color :rgb(93, 20, 20);
+    font-weight: bold;
+}
+.login p{
+    font-size:25px;
+    color:whitesmoke;
+    font-weight: bold;
+
+}
+.login input[type="submit"] {
+width: 40%;
+padding: 10px;
+border: none;
+border-radius: 5px;
+background-color:rgb(128, 128, 71);
+color: #fff;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+ 
+}
+.login a{
+color:rgb(29, 29, 74);
+}
+.login input[type="number"],
+.login input[type="password"] {
+width: 50%;
+padding: 8px;
+margin-bottom: 10px;
+border: 1px solid #ccc;
+border-radius: 3px;
+}

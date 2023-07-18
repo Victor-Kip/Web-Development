@@ -10,59 +10,118 @@ if ($_SESSION['loggedIn']) : ?>
     <head>
         <title>doctorPage</title>
         <style>
+            h1 {
+                font-size: 40;
+                color: brown;
+            }
+
+            h3 {
+                font-size: 30;
+                color: rgb(48, 2, 18);
+            }
+
+            p {
+                font-size: 30;
+            }
+
+            a {
+                color: red;
+            }
+
+
+            body {
+
+
+                height: 100vh;
+                width: 100%;
+                background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
+
+
+
+            }
+
             .name {
                 float: right;
                 color: red;
                 font-size: 35px;
                 border-color: black;
             }
+
+            .remark label {
+                font-size: 25px;
+                color: rgb(93, 20, 20);
+                font-weight: bold;
+            }
+
+            input[type='text'] {
+
+                padding: 8px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+
+            input[type='submit'] {
+                width: 15%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: rgb(128, 128, 71);
+                color: #fff;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+            }
         </style>
 
     </head>
+    <div class="hero">
 
-    <body>
-        <div class="username">
-            <span class="name"><?php echo $_SESSION['name']; ?></span>
-        </div>
-        <?php endif; ?><?php ?>
+        <body>
+            <div class="username">
+                <span class="name"><?php echo $_SESSION['name']; ?></span>
+            </div>
+            <?php endif; ?><?php ?>
 
-        <h1> Welcome to the doctor page, what would you like to do?.</h1>
-        <h3>View Today's Submissions</h3>
-        <form method="post" action="">
-            <input type="submit" name="select" value="View Submissions">
-        </form>
-        <?php
-        if (isset($_POST['select'])) {
-            require_once("connect.php");
-            $today = date("Y-m-d");
-            echo $today;
-            $query  = $conn->prepare("SELECT ConsultationID, PatientSSN, Issue FROM consultation WHERE CDate = ?");
-            if (!$query) {
-                echo "Error" . $conn->error;
-            } else {
-                $query->bind_param('s', $today);
-                $query->execute();
-                $result = $query->get_result();
-                if ($result->num_rows > 0) {
-                    echo "<table>";
-                    echo "<tr><th>ConsultationID</th><th>PatientSSN</th><th>Issue</th></tr>";
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row["ConsultationID"] . "</td>";
-                        echo "<td>" . $row["PatientSSN"] . "</td>";
-                        echo "<td>" . $row["Issue"] . "</td>";
-                        echo "</tr>";
-                    }
-                    echo "</table>";
-                } else {
-                    echo "No submissions have been made .";
+            <h1> Welcome to the doctor page, what would you like to do?.</h1>
+            <h3>View Today's Submissions</h3>
+            <form method="post" action="">
+                <input type="submit" name="select" value="View Submissions">
+            </form>
+    </div>
+    <?php
+    if (isset($_POST['select'])) {
+        require_once("connect.php");
+        $today = date("Y-m-d");
+        echo $today;
+        $query  = $conn->prepare("SELECT ConsultationID, PatientSSN, Issue FROM consultation WHERE CDate = ?");
+        if (!$query) {
+            echo "Error" . $conn->error;
+        } else {
+            $query->bind_param('s', $today);
+            $query->execute();
+            $result = $query->get_result();
+            if ($result->num_rows > 0) {
+                echo "<table>";
+                echo "<tr><th>ConsultationID</th><th>PatientSSN</th><th>Issue</th></tr>";
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row["ConsultationID"] . "</td>";
+                    echo "<td>" . $row["PatientSSN"] . "</td>";
+                    echo "<td>" . $row["Issue"] . "</td>";
+                    echo "</tr>";
                 }
+                echo "</table>";
+            } else {
+                echo "No submissions have been made .";
             }
         }
-        ?>
+    }
+    ?>
 
 
-        <h3>Make a remark</h3>
+    <h3>Make a remark</h3>
+    <div class="remark">
         <form method="post" action="">
             <label for="Id">ConsultationID:</label>
             <input type='number' name='id' id='Id'>
@@ -224,6 +283,6 @@ if ($_SESSION['loggedIn']) : ?>
         <p>Edit my details? <a href="Editdoctor.html"> click here</a></p>
 
 
-    </body>
+        </body>
 
-    </html>
+        </html>

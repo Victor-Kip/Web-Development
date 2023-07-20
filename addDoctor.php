@@ -29,7 +29,7 @@
 		}
 
 		$conn->close();
-		header("Location: patientLogin.html");
+		header("Location: DoctorLogin.html");
 	} else {
 		header("Location: doctorSignup.html?error=passwords");
 		exit();

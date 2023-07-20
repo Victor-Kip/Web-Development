@@ -3,67 +3,102 @@ session_start();
 if (isset($_SESSION["SSN"])) {
     $doctorSSN = $_SESSION["SSN"];
 } else {
-    echo "error";
+    header("Location: DoctorLogin.html");
 }
 if ($_SESSION['loggedIn']) : ?>
 
     <head>
         <title>doctorPage</title>
         <style>
-            h1 {
-                font-size: 40;
-                color: brown;
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                margin: 0;
+                padding: 0;
+                background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
+            }
+
+            .form-container {
+                max-width: 600px;
+                margin: 20px auto;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
 
             h3 {
-                font-size: 30;
-                color: rgb(48, 2, 18);
+                font-size: 24px;
+                color: #333;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            form {
+                width: 100%;
             }
 
             p {
-                font-size: 30;
+                font-size: 16px;
+                color: #333;
+                margin: 10px 0;
             }
 
-            a {
-                color: red;
+            .prescription-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
             }
 
-
-            body {
-
-
-                height: 100vh;
-                width: 100%;
-                background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
-
-
-
+            .input-group {
+                flex: 1;
+                margin-right: 10px;
             }
 
-            .name {
-                float: right;
-                color: red;
-                font-size: 35px;
-                border-color: black;
-            }
+            label {
 
-            .remark label {
                 font-size: 25px;
                 color: rgb(93, 20, 20);
                 font-weight: bold;
+
             }
 
-            input[type='text'] {
 
+            input[type='number'] {
+                width: 10%;
                 padding: 8px;
                 margin-bottom: 10px;
                 border: 1px solid #ccc;
                 border-radius: 3px;
             }
 
+            input[type='text'] {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                font-size: 16px;
+            }
+
+            input[type='date'] {
+                display: block;
+                margin: 0 auto;
+                width: 30%;
+                padding: 12px;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+
+            }
+
             input[type='submit'] {
-                width: 15%;
-                padding: 10px;
+                display: block;
+                margin: 0 auto;
+                width: 30%;
+                padding: 12px;
                 border: none;
                 border-radius: 5px;
                 background-color: rgb(128, 128, 71);
@@ -71,6 +106,12 @@ if ($_SESSION['loggedIn']) : ?>
                 font-size: 16px;
                 font-weight: bold;
                 cursor: pointer;
+
+            }
+
+            input[type='submit']:hover {
+                background-color: rgb(100, 100, 55);
+
             }
         </style>
 
@@ -93,7 +134,6 @@ if ($_SESSION['loggedIn']) : ?>
     if (isset($_POST['select'])) {
         require_once("connect.php");
         $today = date("Y-m-d");
-        echo $today;
         $query  = $conn->prepare("SELECT ConsultationID, PatientSSN, Issue FROM consultation WHERE CDate = ?");
         if (!$query) {
             echo "Error" . $conn->error;
@@ -113,7 +153,7 @@ if ($_SESSION['loggedIn']) : ?>
                 }
                 echo "</table>";
             } else {
-                echo "No submissions have been made .";
+                echo "<p class ='notify'>No submissions have been made today</p> .";
             }
         }
     }
@@ -146,46 +186,60 @@ if ($_SESSION['loggedIn']) : ?>
         }
         ?>
         </form>
-        <h3>Add a prescription</h3>
-        <form method="post" action="">
-            <p> <label for="ConsultationID">Consltation id:</label>
-                <input type="text" name="consultationid" id="ConsultationID">
-            </p>
-            <p>Enter the following details about the prescription</p>
-            <p><label for="drugName">Drug Name:</label>
-                <input type="text" name="drugName[]" id="drugName" required>
 
-                <label for="dosage">Dosage:</label>
-                <input type="text" name="dosage[]" id="dosage">
-
-                <label for="duration">Duration:</label>
-                <input type="text" name="duration[]" id="duration">
-            </p>
-            <p>
-                <label for="drugName">Drug Name:</label>
-                <input type="text" name="drugName[]" id="drugName" required>
-
-                <label for="dosage">Dosage:</label>
-                <input type="text" name="dosage[]" id="dosage">
-
-                <label for="duration">Duration:</label>
-                <input type="text" name="duration[]" id="duration">
-            </p>
-            <p>
-                <label for="drugName">Drug Name:</label>
-                <input type="text" name="drugName[]" id="drugName" required>
-
-                <label for="dosage">Dosage:</label>
-                <input type="text" name="dosage[]" id="dosage">
-
-                <label for="duration">Duration:</label>
-                <input type="text" name="duration[]" id="duration">
-            </p>
-
-
-            <input type="submit" name="add prescription" value="add prescription">
-
-        </form>
+        <div class="form-container">
+            <h3>Add a prescription</h3>
+            <form method="post" action="">
+                <p>
+                    <label for="ConsultationID">Consultation ID:</label>
+                    <input type="text" name="consultationid" id="ConsultationID" required>
+                </p>
+                <p>Enter the following details about the prescription</p>
+                <div class="prescription-row">
+                    <div class="input-group">
+                        <label for="drugName">Drug Name:</label>
+                        <input type="text" name="drugName[]" id="drugName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="dosage">Dosage:</label>
+                        <input type="text" name="dosage[]" id="dosage">
+                    </div>
+                    <div class="input-group">
+                        <label for="duration">Duration:</label>
+                        <input type="text" name="duration[]" id="duration">
+                    </div>
+                </div>
+                <div class="prescription-row">
+                    <div class="input-group">
+                        <label for="drugName">Drug Name:</label>
+                        <input type="text" name="drugName[]" id="drugName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="dosage">Dosage:</label>
+                        <input type="text" name="dosage[]" id="dosage">
+                    </div>
+                    <div class="input-group">
+                        <label for="duration">Duration:</label>
+                        <input type="text" name="duration[]" id="duration">
+                    </div>
+                </div>
+                <div class="prescription-row">
+                    <div class="input-group">
+                        <label for="drugName">Drug Name:</label>
+                        <input type="text" name="drugName[]" id="drugName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="dosage">Dosage:</label>
+                        <input type="text" name="dosage[]" id="dosage">
+                    </div>
+                    <div class="input-group">
+                        <label for="duration">Duration:</label>
+                        <input type="text" name="duration[]" id="duration">
+                    </div>
+                </div>
+                <input type="submit" name="add_prescription" value="Add Prescription">
+            </form>
+        </div>
         <?php
         if (
             isset($_POST['add prescription']) && isset($_POST['consutltationid']) && isset($_POST['prescription']) && isset($_POST['drugName'])
@@ -242,7 +296,7 @@ if ($_SESSION['loggedIn']) : ?>
         ?>
         <h3>View History </h3>
         <form method="post" action="">
-            <input type="text" name="Date" id="date">
+            <input type="date" name="Date" id="date">
             <input type="submit" name="View_History" value="View History">
 
         </form>
@@ -279,8 +333,6 @@ if ($_SESSION['loggedIn']) : ?>
             }
         }
         ?>
-
-        <p>Edit my details? <a href="Editdoctor.html"> click here</a></p>
 
 
         </body>

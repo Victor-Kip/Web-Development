@@ -3,18 +3,78 @@ session_start();
 if (isset($_SESSION["SSN"])) {
     $pharmaSSN = $_SESSION["SSN"];
 } else {
-    echo "error";
+    header("Location: pharmacistlogin.html");
 }
 if ($_SESSION['loggedIn']) : ?>
 
     <head>
         <title>pharmacistPage</title>
+
         <style>
+            h1 {
+                font-size: 40;
+                color: brown;
+            }
+
+            h3 {
+                font-size: 30;
+                color: rgb(48, 2, 18);
+            }
+
+            p {
+                font-size: 30;
+            }
+
+            a {
+                color: red;
+            }
+
+
+            body {
+
+
+                height: 100vh;
+                width: 100%;
+                background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
+
+
+
+            }
+
+            textarea {
+                width: 30%;
+                height: 5%;
+            }
+
+
             .name {
                 float: right;
                 color: red;
                 font-size: 35px;
                 border-color: black;
+            }
+
+
+
+            input[type='text'],
+            input[type='number'] {
+
+                padding: 8px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+
+            input[type='submit'] {
+                width: 15%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: rgb(128, 128, 71);
+                color: #fff;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
             }
         </style>
 

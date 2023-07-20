@@ -15,7 +15,7 @@ if (isset($_POST['login'])) {
         // Login successful
         session_start();
         $_SESSION['PatientSSN'] = $PatientSSN;
-        header("Location: index.php"); // Redirect to success page
+        header("Location: consultation.php"); // Redirect to success page
     } else {
         // Login failed
         echo "<script type = 'text/javascript'>alert('Invalid PatientSSN or Password');</script>";

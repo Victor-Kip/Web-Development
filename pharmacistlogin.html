@@ -1,23 +1,26 @@
 <html>
 	<head>
-		<title>Login</title>
+		<title>Pharmacist Login</title>
+		<link rel="stylesheet" type="text/css" href="login.css">
+		 
 	</head>
 	<body>
-		<h1>Pharmacist Login Page</h1>
-		<p> Pharmacist<a href ="pharmacistSignup1.php"= >New User? </a></p>
-		<p1>Enter your details</p1>
+	 
+		<div class = "login">	
+		<h1>Enter your details</h1>
 		<form action =  "pharmacistlogin.php" method = "post">
-			<label for = "pharmaSSN">Social Security Number:</label>
-			<input type = "number" name = "pharmassn" id = "pharmaSSN">
+			<P><label for = "pharmaSSN">Social Security Number:</label></P>
+			<p><input type = "number" name = "pharmassn" id = "pharmaSSN"></p>
 
-			<label for = "Password">Password:</label>
-			<input type = "password" name = "password" id = "password">
+			<p><label for = "Password">Password:</label></p>
+			<p><input type = "password" name = "password" id = "password"></p>
 
-			<input type = "submit" value  = "Login">
+			<p><input type = "submit" value  = "Login"></p>
 
 			
 		</form>
-
+		<p> Are you a new user?<a href ="pharmacistSignup1.php"= >Click here </a></p>
+	</div>
 		
 	</body>
 </html>

@@ -1,126 +1,128 @@
-<!DOCYPE html>
-    <html>
+<?php
 
-    <head>
-        <title>Consultation</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+session_start();
+if ($_SESSION['PatientSSN']) {
+  echo "Welcome user " . $_SESSION['PatientSSN'];
+} else {
+  header("location: patlogin.php");
+}
+?>
+<a href="logout.php">LogOut</a>
 
-        <link rel="stylesheet" type="text/css" href="consulstyles.css">
-
-        <link rel="preconnect" href="http://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans: ital, wght@0,100; 0,30 0;0,400;0,500; 0,600; 0,700; 1, 100; 1, 200; 1,300; 1,400; 1,500; 1,600;1,700&family=Montserrat: wght@700; 800; 900&display=swap" rel="stylesheet">
-    </head>
-
-    <body>
-
-        <div class="hero">
-            <nav>
-                <h2 class="logo">Honey<span>Meds</span></h2>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-                <button type="button" onclick="window.location.href = 'patlogin.php';">Login</button>
-            </nav>
-        </div>
+<?php
+require_once("connect.php");
+// Add patient
+if (isset($_POST['Submit'])) {
 
 
-
-        <div class="container"></div>
-        <div class="title">Get a consultation today</div>
-        <div class="content">
-            <form action="consultation.php" method="POST">
-                <div class="user-details">
-
-
-                    <div class="input-box">
-                        <span class="details">Consultation ID</span>
-                        <input type="number" name="ConsultationId" placeholder="Enter the consultation number" required>
-                    </div>
-
-
-
-                    <div class="input-box">
-                        <span class="details">Patient SSN</span>
-                        <input type="number" name="PatientSSN" placeholder="Enter your PatientSSN" required>
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Doctor SSN</span>
-                        <input type="number" name="DoctorSSN" placeholder="Enter the DoctorSSN" required>
-                    </div>
-
-
-                    <div class="input-box">
-                        <span class="details">Issue</span>
-                        <textarea name="Issue" placeholder="How are you feeling today?" required></textarea>
-                    </div>
-
-
-                    <div class="input-box">
-                        <span class="details">First Name</span>
-                        <input type="date" name="CDate" placeholder="The date today" required>
-                        <script>
-                            let today = new Date().toISOString().subtr(0, 10);
-                            document.querySelector("#datepicker").value = today;
-                        </script>
-                    </div>
-
-                    Remark:<br>
-                    <input type="text" name="Remark" hidden>
-                    <br>
-
-                    <div class="input-box">
-                        <span class="details">Remark</span>
-                        <input type="text" name="Remark" hidden>
-                    </div>
+  $ConsultationId = $_POST['ConsultationId'];
+  $PatientSSN = $_SESSION['PatientSSN'];
+  $DoctorSSN = $_POST['DoctorSSN'];
+  $Issue = $_POST['Issue'];
+  $CDate = $_POST['CDate'];
+  $Remark = $_POST['Remark'];
 
 
 
 
-                    <div class="button">
-                        <button name="Submit">Submit</button>
-                    </div>
-
-                </div>
+  $query = "INSERT INTO Consultation VALUES ('$ConsultationId', '$PatientSSN','$DoctorSSN','$Issue','$CDate','$Remark')";
 
 
-            </form>
-        </div>
-    </body>
-
-    </html>
-
-
-    <?php
-    require_once("connect.php");
-    // Add patient
-    if (isset($_POST['Submit'])) {
-
-
-        $ConsultationId = $_POST['ConsultationId'];
-        $PatientSSN = $_POST['PatientSSN'];
-        $DoctorSSN = $_POST['DoctorSSN'];
-        $Issue = $_POST['Issue'];
-        $CDate = $_POST['CDate'];
-        $Remark = $_POST['Remark'];
+  if (mysqli_query($conn, $query)) {
+    echo "<script>
+            window.onload = function() {
+                alert('Successfuly sent to the doctor');
+                window.location.href = 'consultation.php';
+            };
+        </script>";
+  } else {
+    echo "<script>
+            window.onload = function() {
+                alert('Error in submission');
+                window.location.href = 'consultation.php';
+            };
+        </script>";
+  }
+}
 
 
-        print_r($_POST);
-
-        $query = "INSERT INTO Consultation VALUES ('$ConsultationId', '$PatientSSN','$DoctorSSN','$Issue','$CDate','$Remark')";
-
-
-        if (mysqli_query($conn, $query)) {
-            header("location: ");
-        } else {
-            echo "Error: " . $query . "<br>" . mysqli_error($conn);
-        }
-    }
+$conn->close();
+?>
 
 
-    $conn->close();
-    ?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="consulstyles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultation</title>
+</head>
+
+<body>
+
+  <div class="hero">
+    <nav>
+      <h2 class="logo">Honey<span>Meds</span></h2>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <button type="button" onclick="window.location.href = 'patlogin.php';">Login</button>
+    </nav>
+
+
+
+    <div class="container">
+      <div class="title">Get a consultation today</div>
+      <div class="content">
+        <form action="consultation.php" method="post">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Consultation Id</span>
+              <input type="number" name="ConsultationId" placeholder="Enter the consultation number" required>
+            </div>
+
+            <div class="input-box">
+              <span class="details">Doctor SSN</span>
+              <input type="number" name="DoctorSSN" placeholder="Enter the DoctorSSN" required>
+            </div>
+            <div class="input-box">
+              <span class="details">Issue</span>
+              <textarea name="Issue" placeholder="How are you feeling today?" required></textarea>
+            </div>
+            <div class="input-box">
+              <span class="details">Consultation Date</span>
+              <input type="date" name="CDate" placeholder="The date today" required>
+              <script>
+                let today = new Date().toISOString().subtr(0, 10);
+                document.querySelector("#datepicker").value = today;
+              </script>
+            </div>
+            <div class="input-box">
+              <span class="details"></span>
+              <input type="text" name="Remark" hidden>
+            </div>
+          </div>
+
+          <div class="button">
+            <input type="submit" name="Submit" value="Submit">
+
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+</body>
+
+</html>

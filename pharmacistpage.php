@@ -11,6 +11,15 @@ if ($_SESSION['loggedIn']) : ?>
         <title>pharmacistPage</title>
 
         <style>
+            .username {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 10px;
+                background-color: antiquewhite;
+                border-bottom-right-radius: 10px;
+            }
+
             h1 {
                 font-size: 40;
                 color: brown;
@@ -76,13 +85,35 @@ if ($_SESSION['loggedIn']) : ?>
                 font-weight: bold;
                 cursor: pointer;
             }
+
+            table {
+                margin-top: 20px;
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                padding: 10px;
+            }
+
+            .tableContainer {
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #f9f9f9;
+                padding: 20px;
+                border-radius: 5px;
+            }
         </style>
 
     </head>
 
     <body>
         <div class="username">
-            <span class="name"><?php echo $_SESSION['name']; ?></span>
+            <span><?php echo $_SESSION['name']; ?></span>
+            <a href="pharmalogout.php">LogOut</a>
         </div>
         <?php endif; ?><?php ?>
 
@@ -93,10 +124,11 @@ if ($_SESSION['loggedIn']) : ?>
         </form>
         <?php
         if (isset($_POST['select'])) {
+            require_once('connect.php');
             $today = Date("Y-m-d");
-            $view = "SELECT  PrescriptionID,doctor.FirstName AS doctorName, patient.FirstName AS patientName FROM prescription_drug JOIN prescription ON 
+            $view = "SELECT  prescription.PrescriptionDate ,prescription_drug.PrescriptionID,doctor.FirstName AS doctorName, patients.FirstName AS patientName FROM prescription_drug JOIN prescription ON 
             prescription_drug.prescriptionID = prescription.prescriptionID JOIN consultation ON prescription.ConsultationId = consultation.ConsultationId
-             JOIN patient ON consutltation.PatientSSN = patient.PatentSSN Join doctor ON patient.PrimaryDoctor = doctor.doctorSSN WHERE prescription.PrescriptionDate = ?";
+             JOIN patients ON consultation.PatientSSN = patients.PatientSSN Join doctor ON patients.PrimaryDoctor = doctor.DoctorSSN WHERE prescription.PrescriptionDate = ?";
             $query = $conn->prepare($view);
             if (!$query) {
                 echo "An error occured" . $conn->error;
@@ -105,12 +137,13 @@ if ($_SESSION['loggedIn']) : ?>
                 $query->execute();
                 $result = $query->get_result();
 
-                if ($result->numrows > 0) {
+                if ($result->num_rows > 0) {
+                    echo "<div class = 'tableContainer'>";
                     echo "<table>";
                     echo "<tr><th>Date</th><th>PrescriptionID</th><th>Doctor</th><th>Patient</th></tr>";
 
 
-                    while ($row->fetch_assoc($result)) {
+                    while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td>" . $row['PrescriptionDate'] . "</td>";
                         echo "<td>" . $row['PrescriptionID'] . "</td>";
@@ -119,6 +152,7 @@ if ($_SESSION['loggedIn']) : ?>
                         echo "</tr>";
                     }
                     echo "</table>";
+                    echo "</div>";
                 } else {
                     echo "There are no submissions today";
                 }
@@ -134,16 +168,21 @@ if ($_SESSION['loggedIn']) : ?>
             <input type="submit" name="Viewdetails" value="View Details">
         </form>
         <?php
-        if (isset($_POST['viewdetails']) && isset($_POST['prescriptionId'])) {
+        if (isset($_POST['Viewdetails']) && isset($_POST['prescriptionid'])) {
             require_once('connect.php');
-            $id = $_POST['prescrptionid'];
-            $query = "SELECT pd.DrugNumber, d.TradeName, pd.Dosage, pd.Duration FROM prescription_drug pd JOIN drug d ON pd.DrugNumber = d.DrugID  WHERE pd.PrescriptionID = '?'";
+            $id = $_POST['prescriptionid'];
+            $query = "SELECT  prescription_drug.PrescriptionID,drug.TradeName, prescription_drug.Dosage, prescription_drug.Duration FROM prescription_drug  JOIN drug 
+             ON prescription_drug.DrugNumber = drug.DrugID  WHERE prescription_drug.PrescriptionID = $id";
 
             $results = mysqli_query($conn, $query);
             if ($results && mysqli_num_rows($results) > 0) {
+                echo "<div class = 'tableContainer'>";
+                echo "<table>";
+                echo "<tr><th>ID</th><th>Drug</th><th>Dosage</th><th>Duration</th></tr>";
                 while ($row = mysqli_fetch_assoc($results)) {
                     echo "<tr>";
-                    echo "<td>" . $row['drugname'] . "</td>";
+                    echo "<td>" . $row['PrescriptionID'] . "</td>";
+                    echo "<td>" . $row['TradeName'] . "</td>";
                     echo "<td>" . $row['Dosage'] . "</td>";
                     echo "<td>" . $row['Duration'] . "</td>";
                     echo "</tr>";
@@ -153,10 +192,11 @@ if ($_SESSION['loggedIn']) : ?>
             }
 
             echo "</table>";
+            echo "</div>";
         }
         ?>
         <h2>Dispense drugs</h2>
-        <p>Enter a presciption id dispense drugs to a patient</p>
+        <p>Enter a prescription id to dispense drugs to a patient</p>
         <form action="" method="post">
             <p> <label for="PrescriptionId">ID</label>
                 <input type="Number" name="prescriptionid" id="PrescriptionId">
@@ -164,55 +204,32 @@ if ($_SESSION['loggedIn']) : ?>
             <input type="submit" name="dispense" value="Enter">
         </form>
         <?php
-        if (isset($_POST['dispense']) && isset($_POST['prescriptionId'])) {
-            require_once('connect.php');
-            $id = $_POST['prescriptionId'];
-
-            $query = "SELECT pd.DrugNumber, d.TradeName, pd.Dosage, pd.Duration FROM prescription_drug pd JOIN drug d ON pd.DrugNumber = d.DrugID  WHERE pd.PrescriptionID = ?";
-            $stmt = mysqli_prepare($conn, $query);
-            mysqli_stmt_bind_param($stmt, "i", $id);
-            mysqli_stmt_execute($stmt);
-            $results = mysqli_stmt_get_result($stmt);
-
-            if ($results && mysqli_num_rows($results) > 0) {
-                echo "<table>";
-                echo "<tr><th>Drug</th><th>Dosage</th><th>Duration</th></tr>";
-                while ($row = mysqli_fetch_assoc($results)) {
-                    echo "<tr>";
-                    echo "<td>" . $row['TradeName'] . "</td>";
-                    echo "<td>" . $row['Dosage'] . "</td>";
-                    echo "<td>" . $row['Duration'] . "</td>";
-                    echo "</tr>";
-                }
-                echo "</table>";
-                echo "<p>The above drugs will be dispensed</p>";
-                echo "<form action='' method='post'>";
-                echo "<input type='submit' name='dispensed' value='Dispense'>";
-                echo "</form>";
-            } else {
-                echo "<p>No prescription data found.</p>";
-            }
-        }
-
-
-        if (isset($_POST['dispensed'])) {
-
-            $query = "SELECT DrugNumber FROM prescription_drug WHERE PrescriptionID = $prescriptionId";
+        if (isset($_POST['dispense']) && isset($_POST['prescriptionid'])) {
+            require_once("connect.php");
+            $id = $_POST['prescriptionid'];
+            $query = "SELECT DrugNumber FROM prescription_drug WHERE PrescriptionID = $id";
             $result = mysqli_query($conn, $query);
+
             while ($row = mysqli_fetch_assoc($result)) {
                 $drugNumber = $row['DrugNumber'];
-                $queryDrug = "SELECT DrugID, Cost FROM drugs WHERE DrugNumber = $drugNumber";
+                $queryDrug = "SELECT   drug.DrugID,drug.Cost FROM  drug JOIN prescription_drug ON prescription_drug.DrugNumber = drug.DrugID WHERE DrugNumber = $drugNumber;";
+
                 $resultDrug = mysqli_query($conn, $queryDrug);
-                $rowDrug = mysqli_fetch_assoc($resultDrug);
-                $drugId = $rowDrug['DrugID'];
-                $cost = $rowDrug['Cost'];
-                $updateQuery = "UPDATE prescription_drug SET DrugID = $drugId, Cost = $cost WHERE PrescriptionID = $prescriptionId AND DrugNumber = $drugNumber";
-                mysqli_query($conn, $updateQuery);
-            }
-            if (mysqli_affected_rows($conn) > 0) {
-                echo "Prescription drug costs updated successfully for PrescriptionID $prescriptionId.";
-            } else {
-                echo "No prescription drug costs were updated for PrescriptionID $prescriptionId.";
+                if (!$queryDrug) {
+                    echo "Error:" . $conn->error;
+                } else {
+                    $rowDrug = mysqli_fetch_assoc($resultDrug);
+
+                    $cost = $rowDrug['Cost'];
+                    $updateQuery = "UPDATE prescription_drug SET Cost = $cost WHERE PrescriptionID = $id AND DrugNumber = $drugNumber";
+
+                    mysqli_query($conn, $updateQuery);
+                }
+                if (mysqli_affected_rows($conn) > 0) {
+                    echo "Prescription drug costs updated successfully for PrescriptionID $id.";
+                } else {
+                    echo "No prescription drug costs were updated for PrescriptionID $id.";
+                }
             }
         }
 

@@ -8,7 +8,7 @@ if (isset($_POST['login'])) {
 
 
     // Query the database to check if the user exists
-    $query = "SELECT * FROM Patient WHERE PatientSSN='$PatientSSN' AND Password='$Password'";
+    $query = "SELECT * FROM Patients WHERE PatientSSN='$PatientSSN' AND Password='$Password'";
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) == 1) {
@@ -48,7 +48,7 @@ if (isset($_POST['login'])) {
 
     <div class="hero">
         <nav>
-            <h2 class="logo">Honey<span>Meds</span></h2>
+            <h2 class="logo">Drug<span>Tool</span></h2>
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
@@ -86,7 +86,7 @@ if (isset($_POST['login'])) {
 
 
 
-        <p><a href="paregister.html">Don't have an account? Register</a></p>
+        <p><a href=" paregister.php">Don't have an account? Register</a></p>
 
     </div>
 

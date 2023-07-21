@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['PatientSSN']) {
+if ($_SESSION['AdminSSN']) {
     $loggedInUser = $_SESSION['AdminSSN'];
 } else {
     header("location: viewrecords.php");

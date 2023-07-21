@@ -89,20 +89,92 @@ if ($_SESSION['loggedIn']) : ?>
                 font-size: 35px;
                 border-color: black;
             }
+
+            .view-drugs-container {
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #f9f9f9;
+                padding: 20px;
+                border-radius: 5px;
+            }
+
+
+            table {
+                margin-top: 20px;
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                padding: 10px;
+            }
+
+            .edit-drug-form {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .form_group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .form_group[type='text'] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+
+            .form_group input[type='submit'] {
+                width: 100%;
+                padding: 12px;
+                border: none;
+                border-radius: 5px;
+                background-color: rgb(128, 128, 71);
+                color: #fff;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .form_group input[type='submit']:hover {
+                background-color: rgb(100, 100, 55);
+            }
+
+            a {
+                color: red;
+            }
+
+            .username {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 10px;
+                background-color: antiquewhite;
+                border-bottom-right-radius: 10px;
+            }
         </style>
+
 
     </head>
 
     <body>
         <div class="username">
-            <span class="name"><?php echo $_SESSION['name']; ?></span>
+            <span><?php echo $_SESSION['name']; ?></span>
+            <a href="pharmalogout.php">LogOut</a>
         </div>
         <?php endif; ?><?php ?>
 
         <h1> Welcome to the Drug Management page.</h1>
         <h2>View available drugs</h2>
         <form action="" method="post">
-            <p> <input type="submit" name="viewToday" value="View Submissions"></p>
+            <p> <input type="submit" name="viewToday" value="View Drugs"></p>
         </form>
         <?php
         if (isset($_POST['viewToday'])) {
@@ -111,11 +183,11 @@ if ($_SESSION['loggedIn']) : ?>
             $sql = "SELECT * FROM drug";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
+                echo "<div class='view-drugs-container'>";
                 echo "<table>";
-                echo "<tr><th>Drug</th><th>Formula</th><th>Size</th><th>Company</th><th>ManufacutreDate</th><th>ExpiryDate</th>
-            <th>Cost</th></tr>";
+                echo "<tr><th>Drug</th><th>Formula</th><th>Size</th><th>Company</th><th>ManufacutreDate</th><th>ExpiryDate</th><th>Cost</th></tr>";
 
-                while ($row->fetch_assoc($result)) {
+                while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $row['TradeName'] . "</td>";
                     echo "<td>" . $row['Formula'] . "</td>";
@@ -124,9 +196,10 @@ if ($_SESSION['loggedIn']) : ?>
                     echo "<td>" . $row['ManufacturingDate'] . "</td>";
                     echo "<td>" . $row['ExpiryDate'] . "</td>";
                     echo "<td>" . $row['Cost'] . "</td>";
-                    echo "</tr";
+                    echo "</tr>";
                 }
                 echo "</table>";
+                echo "</div>";
             } else {
                 echo "No drugs present";
             }
@@ -142,7 +215,7 @@ if ($_SESSION['loggedIn']) : ?>
                     <p> <label for="Formula">Formula:</label>
                         <input type="text" name="formula" id="Formula">
                     </p>
-                    <p> <label for="Size">Formula:</label>
+                    <p> <label for="Size">Size:</label>
                         <input type="text" name="size" id="Size">
                     </p>
                     <p> <label for="Company">Company:</label>
@@ -159,10 +232,11 @@ if ($_SESSION['loggedIn']) : ?>
                     <p> <label for="Cost">Cost per unit:</label>
                         <input type="text" name="cost" id="Cost">
                     </p>
-                    <input type="submit" name="addDrug" value="Add Drug">
+                </div>
+            </div>
+            <input type="submit" name="addDrug" value="Add Drug">
         </form>
-        </div>
-        </div>
+
         <?php
         if (
             isset($_POST['drug']) && isset($_POST['formula']) && isset($_POST['size']) && isset($_POST['company']) && isset($_POST['manufacturedate']) &&
@@ -177,7 +251,7 @@ if ($_SESSION['loggedIn']) : ?>
             $expirydate = $_POST['expirydate'];
             $cost = $_POST['cost'];
 
-            $insertdrug = "INSERT INTO drug VALUES('$drug','$formula','$size','$company','$manufacturedate','$expirydate','$cost')";
+            $insertdrug = "INSERT INTO drug (TradeName, Formula, Size, Company, ManufacturingDate, ExpiryDate, Cost) VALUES('$drug','$formula','$size','$company','$manufacturedate','$expirydate','$cost')";
             if ($conn->query($insertdrug)) {
                 echo "Drugs added successfully";
             } else {
@@ -187,20 +261,21 @@ if ($_SESSION['loggedIn']) : ?>
         ?>
         <h2>Edit drug details</h2>
         <p>Enter the drug whose details are to be edited</p>
-        <form action="" method="post"></form>
-        <p><label for="Drug">Drug Name:</label></p>
-        <p><input type="text" name="drug" id="Drug"></p>
-        <p>The following details can be edited</p>
-        <p><label for="Newdrug">New Drug Name:</label></p>
-        <p> <input type="text" name="newdrug" id="Newdrug"></p>
-        </p>
-        <p><label for="NewSize">New Size:</label></p>
-        <p> <input type="text" name="newsize" id="NewSize">
-        </p>
-        <p>
+        <form action="" method="post" class="edit_drug_form">
+            <div class="form_group" .>
+                <p><label for="Drug">Drug Name:</label></p>
+                <p><input type="text" name="drug" id="Drug"></p>
+                <p>The following details can be edited</p>
+                <p><label for="Newdrug">New Drug Name:</label></p>
+                <p><input type="text" name="newdrug" id="Newdrug"></p>
+                <p><label for="NewSize">New Size:</label></p>
+                <p><input type="text" name="newsize" id="NewSize"></p>
 
-            <input type="submit" name="select" value="Update">
-        </p>
+                <p>
+                    <input type="submit" name="select" value="Update">
+                </p>
+            </div>
+        </form>
         <?php
         if (isset($_POST['drug']) && isset($_POST['newdrug']) && isset($_POST['newsize']) && isset($_POST['select'])) {
             require_once("connect.php");
@@ -210,16 +285,24 @@ if ($_SESSION['loggedIn']) : ?>
 
             $selectid = "SELECT DrugID from drug where TradeName = ?";
             $sql = $conn->prepare($selectid);
-            if ($sql = $conn->prepare($selectid)) {
+            if ($sql) {
                 $sql->bind_param('s', $drug);
                 $sql->execute();
                 $sql->bind_result($id);
+                $sql->fetch();
 
-                $update = "UPDATE Drug SET TradeName = ?,Size = ? WHERE DrugID = ?";
-                if ($prep = $conn->prepare($update)) {
-                    $prep->bind_param('ssi', $newdrug, $newsize, $id);
-                    $prep->execute();
+                $sql->close();
+
+                $update = "UPDATE Drug SET TradeName = ?, Size = ? WHERE DrugID = ?";
+                $stmt = $conn->prepare($update);
+                if ($stmt) {
+                    $stmt->bind_param('ssi', $newdrug, $newsize, $id);
+                    $stmt->execute();
+                } else {
+                    echo " Select Error:" . $conn->error;
                 }
+            } else {
+                echo "Update Error:" . $conn->error;
             }
         }
 

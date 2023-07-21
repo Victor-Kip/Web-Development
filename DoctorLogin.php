@@ -33,7 +33,7 @@ if (empty($error)) {
 
             if (password_verify($password, $pass)) {
 
-                $_SESSION["SSN"] = $doctorSSN;
+                $_SESSION["doctorssn"] = $doctorSSN;
                 $_SESSION["name"] = $name;
                 $_SESSION['loggedIn'] = true;
 

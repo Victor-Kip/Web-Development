@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (isset($_SESSION["SSN"])) {
-    $pharmaSSN = $_SESSION["SSN"];
+if (isset($_SESSION["pharmassn"])) {
+    $pharmaSSN = $_SESSION["pharmassn"];
 } else {
     header("Location: pharmacistlogin.html");
 }
@@ -11,6 +11,54 @@ if ($_SESSION['loggedIn']) : ?>
         <title>pharmacistPage</title>
 
         <style>
+            .hero {
+                height: 20vh;
+                width: 100%;
+                background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
+                background-size: cover;
+                background-position: center;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 10%;
+
+            }
+
+            .logo {
+                color: white;
+                font-size: 28px;
+                margin: 0;
+            }
+
+            span {
+                color: #ea1538;
+            }
+
+            nav ul li {
+                list-style-type: none;
+                display: inline-block;
+                padding: 20px 20px;
+            }
+
+            nav ul li a {
+                color: white;
+                text-decoration: none;
+
+                font-weight: bold;
+            }
+
+            nav ul li a:hover {
+                color: #ea1538;
+                transition: .3s;
+            }
+
             .username {
                 position: absolute;
                 top: 0;
@@ -106,11 +154,30 @@ if ($_SESSION['loggedIn']) : ?>
                 padding: 20px;
                 border-radius: 5px;
             }
+
+            * {
+
+                padding: 0;
+                font-family: "montserrat", sans-serif;
+
+            }
         </style>
 
     </head>
 
     <body>
+        <div class="hero">
+            <nav>
+                <h2 class="logo">Honey<span>Meds</span></h2>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+
+            </nav>
+        </div>
         <div class="username">
             <span><?php echo $_SESSION['name']; ?></span>
             <a href="pharmalogout.php">LogOut</a>

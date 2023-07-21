@@ -13,11 +13,73 @@
       color: #333;
       appearance: none;
     }
+
+    .hero {
+      height: 20vh;
+      width: 100%;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
+      background-size: cover;
+      background-position: center;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 10%;
+
+    }
+
+    .logo {
+      color: white;
+      font-size: 28px;
+      margin: 0;
+    }
+
+    span {
+      color: #ea1538;
+    }
+
+    nav ul li {
+      list-style-type: none;
+      display: inline-block;
+      padding: 20px 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+
+      font-weight: bold;
+    }
+
+    nav ul li a:hover {
+      color: #ea1538;
+      transition: .3s;
+    }
   </style>
   <link rel="stylesheet" type="text/css" href="webstyles.css">
 </head>
 
 <body>
+  <div class="hero">
+    <nav>
+      <h2 class="logo">Honey<span>Meds</span></h2>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <button type="button" onclick="window.location.href = 'patlogin.php';">
+        Login
+      </button>
+    </nav>
+  </div>
   <h1>Enter your details</h1>
   <div class="register">
 

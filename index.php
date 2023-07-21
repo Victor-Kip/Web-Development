@@ -20,12 +20,12 @@
 
     <div class="hero">
         <nav>
-            <h2 class="logo">Drug<span>Tool</span></h2>
+            <h2 class="logo">Honey<span>Meds</span></h2>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="DoctorLogin.html">Doctor</a></li>
-                <li><a href="pharmacistlogin.html">Pharmacist</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="#">Contact</a></li>
             </ul>
             <button type="button" onclick="window.location.href = 'patlogin.php';">Login</button>
         </nav>

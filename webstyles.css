@@ -6,6 +6,12 @@ h1 {
     grid-template-columns: 0.15fr 0.35fr;
     grid-gap: 10px;
 }
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "montserrat",sans-serif;
+  
+  }
 
 
 
@@ -70,3 +76,48 @@ margin-bottom: 10px;
 border: 1px solid #ccc;
 border-radius: 3px;
 }
+.hero{
+    height: 20vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(projimage.jpg); 
+    background-size: cover;
+    background-position: center;
+  }
+ 
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10%;
+    
+  }
+  
+  .logo{
+    color: white;
+    font-size: 28px;
+  }
+  
+  span{
+    color: #ea1538;
+  }
+  
+  nav ul li{
+    list-style-type: none;
+    display: inline-block;
+    padding: 10px 20px;
+  }
+  
+  nav ul li a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  nav ul li a:hover{
+    color: #ea1538;
+    transition: .3s;
+  }

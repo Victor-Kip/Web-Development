@@ -10,6 +10,13 @@ if ($_SESSION['loggedIn']) : ?>
     <head>
         <title>doctorPage</title>
         <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: "montserrat", sans-serif;
+
+            }
+
             body {
                 font-family: Arial, sans-serif;
                 background-color: #f9f9f9;
@@ -62,6 +69,14 @@ if ($_SESSION['loggedIn']) : ?>
                 color: rgb(93, 20, 20);
                 font-weight: bold;
 
+            }
+
+            .hero {
+                height: 20vh;
+                width: 100%;
+                background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
+                background-size: cover;
+                background-position: center;
             }
 
 
@@ -144,17 +159,68 @@ if ($_SESSION['loggedIn']) : ?>
                 border: 1px solid black;
                 padding: 10px;
             }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 10%;
+
+            }
+
+            .logo {
+                color: white;
+                font-size: 28px;
+            }
+
+            span {
+                color: #ea1538;
+            }
+
+            nav ul li {
+                list-style-type: none;
+                display: inline-block;
+                padding: 10px 20px;
+            }
+
+            nav ul li a {
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            nav ul li a:hover {
+                color: #ea1538;
+                transition: .3s;
+            }
         </style>
 
     </head>
     <div class="hero">
 
         <body>
+            <div class="hero">
+                <nav>
+                    <h2 class="logo">Honey<span>Meds</span></h2>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+
+                </nav>
+            </div>
             <div class="username">
                 <span class="name"><?php echo $_SESSION['name']; ?></span>
                 <a href="doclogout.php">LogOut</a>
             </div>
             <?php endif; ?><?php ?>
+
 
             <h1> Welcome to the doctor page, what would you like to do?.</h1>
             <h3>View Today's Submissions</h3>

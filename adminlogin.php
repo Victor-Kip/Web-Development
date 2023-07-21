@@ -68,7 +68,7 @@
 </html>
 
 <?php
-require_once("connection.php");
+require_once("connect.php");
 
 if (isset($_POST['login'])) {
     $AdminSSN = $_POST['AdminSSN'];

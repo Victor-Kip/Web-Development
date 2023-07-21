@@ -231,11 +231,11 @@ if ($_SESSION['loggedIn']) : ?>
             if (isset($_POST['select'])) {
                 require_once("connect.php");
                 $today = date("Y-m-d");
-                $query  = $conn->prepare("SELECT ConsultationID, PatientSSN, Issue FROM consultation WHERE CDate = ?");
+                $query  = $conn->prepare("SELECT ConsultationID, PatientSSN, Issue FROM consultation WHERE CDate = ? AND DoctorSSN = ?");
                 if (!$query) {
                     echo "Error" . $conn->error;
                 } else {
-                    $query->bind_param('s', $today);
+                    $query->bind_param('si', $today, $doctorSSN);
                     $query->execute();
                     $result = $query->get_result();
                     if ($result->num_rows > 0) {

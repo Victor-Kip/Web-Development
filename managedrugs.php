@@ -91,7 +91,7 @@ if ($_SESSION['loggedIn']) : ?>
             }
 
             .view-drugs-container {
-                max-width: 600px;
+                max-width: 700px;
                 margin: 0 auto;
                 background-color: #f9f9f9;
                 padding: 20px;

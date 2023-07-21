@@ -5,6 +5,7 @@ if ($_SESSION['PatientSSN']) {
   echo "Welcome user " . $_SESSION['PatientSSN'];
 } else {
   header("location: patlogin.php");
+  exit();
 }
 ?>
 <a href="logout.php">LogOut</a>
@@ -46,7 +47,8 @@ if (isset($_POST['Submit'])) {
 }
 
 
-$conn->close();
+
+
 ?>
 
 
@@ -58,6 +60,7 @@ $conn->close();
 
   <link rel="stylesheet" href="consulstyles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <title>Consultation</title>
 </head>
 
@@ -84,20 +87,19 @@ $conn->close();
           <div class="user-details">
             <div class="input-box">
               <span class="details">Consultation Id</span>
-              <input type="number" name="ConsultationId" placeholder="Enter the consultation number" required>
+              <input type="number" name="ConsultationId" placeholder="Enter the consultation number">
             </div>
-
             <div class="input-box">
               <span class="details">Doctor SSN</span>
-              <input type="number" name="DoctorSSN" placeholder="Enter the DoctorSSN" required>
+              <input type="number" name="DoctorSSN" placeholder="Enter the DoctorSSN">
             </div>
             <div class="input-box">
               <span class="details">Issue</span>
-              <textarea name="Issue" placeholder="How are you feeling today?" required></textarea>
+              <textarea name="Issue" placeholder="How are you feeling today?"></textarea>
             </div>
             <div class="input-box">
               <span class="details">Consultation Date</span>
-              <input type="date" name="CDate" placeholder="The date today" required>
+              <input type="date" name="CDate" placeholder="The date today">
               <script>
                 let today = new Date().toISOString().subtr(0, 10);
                 document.querySelector("#datepicker").value = today;
@@ -111,8 +113,7 @@ $conn->close();
 
           <div class="button">
             <input type="submit" name="Submit" value="Submit">
-
-
+            <input type="submit" name="Check" value="Check Prescription">
           </div>
         </form>
       </div>
@@ -120,6 +121,61 @@ $conn->close();
 
   </div>
 
+  <?php
+  if (isset($_POST['Check'])) {
+
+    $patientSSN = mysqli_real_escape_string($conn, $_SESSION['PatientSSN']);
+
+    $query1 = "SELECT
+        Remark,
+        TradeName,
+        Dosage,
+        Duration,
+        prescription_drug.Cost
+    FROM
+        consultation 
+    INNER JOIN prescription  ON consultation.ConsultationID = prescription.ConsultationID
+    INNER JOIN prescription_drug  ON prescription.PrescriptionID = prescription_drug.PrescriptionID
+    INNER JOIN drug ON prescription_drug.DrugNumber = drug.DrugID WHERE consultation.PatientSSN='$patientSSN';";
+    $result1 = mysqli_query($conn, $query1);
+
+
+
+    echo '<div class="row mt-5">';
+    echo '    <div class="col">';
+    echo '        <div class="card mt-5">';
+    echo '            <div class="card-header">';
+    echo '                <h2 class="display-6 text-center">The Prescription:</h2>';
+    echo '            </div>';
+    echo '            <div class="card-body">';
+    echo '                <table class="table table-bordered text-center">';
+    echo '                    <tr class="bg-dark text-white">';
+    echo '                        <th> Remark </th>';
+    echo '                        <th> DrugName </th>';
+    echo '                        <th> Dosage</th>';
+    echo '                        <th> Duration</th>';
+    echo '                        <th> Cost</th>';
+    echo '                    </tr>';
+
+    while ($row = mysqli_fetch_assoc($result1)) {
+      echo '                    <tr>';
+      echo '                        <td>' . $row['Remark'] . '</td>';
+      echo '                        <td>' . $row['TradeName'] . '</td>';
+      echo '                        <td>' . $row['Dosage'] . '</td>';
+      echo '                        <td>' . $row['Duration'] . '</td>';
+      echo '                        <td>' . $row['Cost'] . '</td>';
+      echo '                    </tr>';
+    }
+
+    echo '                </table>';
+    echo '            </div>';
+    echo '        </div>';
+    echo '    </div>';
+    echo '</div>';
+
+    $conn->close();
+  }
+  ?>
 
 
 

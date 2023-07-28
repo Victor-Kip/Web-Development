@@ -110,17 +110,35 @@ if ($_SESSION['loggedIn']) : ?>
                         <p>Enter the following details about the prescription</p>
                         <div class="prescription-row">
                             <div class="input-group">
-                                <label for="drugName">Drug Name:</label>
+                                <label for="drugName">Drug</label>
                                 <input type="text" name="drugName" id="drugName" required>
                             </div>
                             <div class="input-group">
-                                <label for="dosage">Dosage:</label>
+                                <label for="dosage">Dosage</label>
                                 <input type="text" name="dosage" id="dosage">
                             </div>
                             <div class="input-group">
-                                <label for="duration">Duration:</label>
+                                <label for="duration">Duration</label>
                                 <input type="text" name="duration" id="duration">
                             </div>
+                            <p>
+                                <label for="pharma">Pharmacy</label>
+                            </p>
+                            <p> <select name="pharma" id="pharma">
+                                    <option value="">Select Pharmacy</option>
+                                    <?php
+                                    require_once("connect.php");
+                                    $sql = "SELECT PharmacyName from Pharmacy";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($pharmacy = $result->fetch_assoc()) {
+                                            $pharmacyname = $pharmacy['PharmacyName'];
+                                            echo '<option value="' . $pharmacyname . '">' . $pharmacyname . '</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </p>
                         </div>
 
                 </div>
@@ -130,7 +148,7 @@ if ($_SESSION['loggedIn']) : ?>
             <?php
             if (
                 isset($_POST['add_prescription']) && isset($_POST['consultationid'])  &&   isset($_POST['drugName'])
-                && isset($_POST['dosage']) && isset($_POST['duration'])
+                && isset($_POST['dosage']) && isset($_POST['duration']) && isset($_POST['pharma'])
             ) {
                 require_once("connect.php");
                 $id = $_POST['consultationid'];
@@ -138,8 +156,10 @@ if ($_SESSION['loggedIn']) : ?>
                 $drugNames = $_POST['drugName'];
                 $dosages = $_POST['dosage'];
                 $durations = $_POST['duration'];
+                $pharma = $_POST['pharma'];
 
-                $insertPrescription = "INSERT INTO prescription (ConsultationId, PrescriptionDate) VALUES ('$id', '$today')";
+                $insertPrescription = "INSERT INTO prescription (ConsultationId, PrescriptionDate,pharmacyName) VALUES ('$id', '$today','$pharma')";
+
 
                 if ($conn->query($insertPrescription)) {
 

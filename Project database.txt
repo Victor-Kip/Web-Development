@@ -1,0 +1,38 @@
+Create database if not exists HospitalDB;
+USE HospitalDB;
+create table if not exists Doctor  (DoctorSSN INT NOT NULL UNIQUE,FirstName VARCHAR(50) NOT NULL,
+SecondName VARCHAR (50) NOT NULL,Specialty VARCHAR (50) NOT NULL ,YearsPractised INT NOT NULL,password VARCHAR
+ (1024),PRIMARY KEY(DoctorSSN));
+
+ CREATE TABLE IF NOT EXISTS Patients(PatientSSN INT NOT NULL UNIQUE,FirstName VARCHAR(50) NOT NULL,SecondName VARCHAR (50) NOT NULL,
+Address VARCHAR (50) NOT NULL ,Age INT NOT NULL,Height INT NOT NULL,Weight INT NOT NULL,Allergies VARCHAR(255),PrimaryDoctor INT NOT NULL, password VARCHAR (1024),
+		PRIMARY KEY(PatientSSN));
+ 
+
+create table if not exists Company  (CompanyName VARCHAR(50) NOT NULL UNIQUE,CEmail VARCHAR(50) NOT NULL UNIQUE,
+CPhoneNumber INT NOT NULL UNIQUE,CLocation VARCHAR (50) NOT NULL UNIQUE,PRIMARY KEY(CompanyName));
+ 
+ CREATE TABLE IF NOT EXISTS Consultation (ConsultationId INT AUTO_INCREMENT,PatientSSN INT NOT NULL,DoctorSSN INT 
+ NOT NULL,Issue VARCHAR (255) NOT NULL,CDate VARCHAR (20),Remark VARCHAR (255) NOT NULL,PRIMARY KEY (ConsultationID),FOREIGN KEY(PatientSSN)
+ REFERENCES Patient(PatientSSN),FOREIGN KEY(DoctorSSN)REFERENCES Doctor(DoctorSSN)); 
+ 
+ CREATE TABLE IF NOT EXISTS Prescription (PrescriptionID INT AUTO_INCREMENT,ConsultationId INT NOT NULL, PrescriptionDate VARCHAR (20),pharmacyName VARCHAR (20),PRIMARY KEY(PrescriptionId),FOREIGN KEY(ConsultationId) REFERENCES
+ Consultation(ConsultationID),FOREIGN KEY (pharmacyName) REFERENCES pharmacy(PharmacyName));
+ 
+ CREATE TABLE IF NOT EXISTS Drug (DrugID INT AUTO_INCREMENT ,TradeName VARCHAR(50) NOT NULL UNIQUE,Formula VARCHAR(50) NOT NULL,
+ Size VARCHAR (20),Company VARCHAR(50) NOT NULL,ManufacturingDate VARCHAR(50),ExpiryDate VARCHAR (20),Cost INT NOT NULL,
+ PRIMARY KEY(DrugID));
+ 
+CREATE TABLE IF NOT EXISTS prescription_drug ( DrugID INT AUTO_INCREMENT,PrescriptionID INT NOT NULL,DrugNumber INT NOT NULL,
+  Dosage VARCHAR(100),Duration VARCHAR(100),Cost INT, PRIMARY KEY(DrugID),FOREIGN KEY(PrescriptionID) REFERENCES Prescription(PrescriptionID),FOREIGN KEY(DrugNumber)
+  REFERENCES Drug(DrugID));
+create table if not exists Pharmacy  (PharmacyName VARCHAR(50) NOT NULL UNIQUE,Email VARCHAR(50) NOT NULL UNIQUE,
+PhoneNumber INT NOT NULL UNIQUE,Location VARCHAR (50) NOT NULL ,PRIMARY KEY(PharmacyName));
+
+ 
+  
+CREATE TABLE IF NOT EXISTS pharmacist (PharmaSSN INT NOT NULL UNIQUE,FirstName VARCHAR (20) NOT NULL, SecondName VARCHAR (20) NOT NULL,Pharmacy VARCHAR (20) NOT NULL,
+YearsPractised INT NOT NULL,Password VARCHAR (1024) NOT NULL,Primary Key(PharmaSSN),FOREIGN KEY (Pharmacy) REFERENCES Pharmacy
+(PharmacyName));
+CREATE TABLE IF NOT EXISTS Administrator(AdminSSN INT NOT NULL UNIQUE,FirstName VARCHAR(50) NOT NULL,LastName VARCHAR(50) NOT NULL,
+Email VARCHAR(50) NOT NULL,Password VARCHAR(1024), PRIMARY KEY(AdminSSN));

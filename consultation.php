@@ -123,6 +123,7 @@ if (isset($_POST['Submit'])) {
             </div>
         </div>
     </div>
+    </div>
 
     <?php
     if (isset($_POST['Check'])) {

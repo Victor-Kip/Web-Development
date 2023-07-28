@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "montserrat", sans-serif;
+
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    width: 100%;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.prescription-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-group {
+    flex: 1;
+    margin-right: 10px;
+}
+
+label {
+
+    font-size: 25px;
+    color: rgb(93, 20, 20);
+    font-weight: bold;
+
+}
+
+.hero {
+    height: 20vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+
+input[type='number'] {
+    width: 10%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type='text'] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+input[type='date'] {
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+input[type='submit'] {
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(128, 128, 71);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+input[type='submit']:hover {
+    background-color: rgb(100, 100, 55);
+
+}
+
+.username {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    background-color: antiquewhite;
+    border-bottom-right-radius: 10px;
+}
+
+.tableContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+
+table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10%;
+
+}
+
+.logo {
+    color: white;
+    font-size: 28px;
+}
+
+span {
+    color: #ea1538;
+}
+
+nav ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #ea1538;
+    transition: .3s;
+}

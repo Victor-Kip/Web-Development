@@ -46,7 +46,8 @@ if ($_SESSION['loggedIn']) : ?>
             $today = Date("Y-m-d");
             $view = "SELECT  prescription.PrescriptionDate ,prescription_drug.PrescriptionID,doctor.FirstName AS doctorName, patients.FirstName AS patientName FROM prescription_drug JOIN prescription ON 
             prescription_drug.prescriptionID = prescription.prescriptionID JOIN consultation ON prescription.ConsultationId = consultation.ConsultationId
-             JOIN patients ON consultation.PatientSSN = patients.PatientSSN Join doctor ON patients.PrimaryDoctor = doctor.DoctorSSN WHERE prescription.PrescriptionDate = ? AND ";
+             JOIN patients ON consultation.PatientSSN = patients.PatientSSN Join doctor ON consultation.DoctorSSN = doctor.DoctorSSN WHERE prescription.PrescriptionDate = ? AND prescription.pharmacyName = (SELECT Pharmacy FROM
+             pharmacist WHERE PharmaSSN = $pharmaSSN) ";
             $query = $conn->prepare($view);
             if (!$query) {
                 echo "An error occured" . $conn->error;

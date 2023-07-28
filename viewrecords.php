@@ -1,11 +1,10 @@
 <?php
 session_start();
-if (isset($_SESSION['AdminSSN']) && !empty($_SESSION['AdminSSN'])) {
+if ($_SESSION['AdminSSN']) {
     $loggedInUser = $_SESSION['AdminSSN'];
 } else {
     header("location: viewrecords.php");
 }
-
 
 require_once 'connect.php';
 

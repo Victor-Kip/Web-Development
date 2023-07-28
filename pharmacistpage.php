@@ -10,158 +10,9 @@ if ($_SESSION['loggedIn']) : ?>
     <head>
         <title>pharmacistPage</title>
 
-        <style>
-            .hero {
-                height: 20vh;
-                width: 100%;
-                background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
-                background-size: cover;
-                background-position: center;
-            }
-
-            nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 10px 10%;
-
-            }
-
-            .logo {
-                color: white;
-                font-size: 28px;
-                margin: 0;
-            }
-
-            span {
-                color: #ea1538;
-            }
-
-            nav ul li {
-                list-style-type: none;
-                display: inline-block;
-                padding: 20px 20px;
-            }
-
-            nav ul li a {
-                color: white;
-                text-decoration: none;
-
-                font-weight: bold;
-            }
-
-            nav ul li a:hover {
-                color: #ea1538;
-                transition: .3s;
-            }
-
-            .username {
-                position: absolute;
-                top: 0;
-                right: 0;
-                padding: 10px;
-                background-color: antiquewhite;
-                border-bottom-right-radius: 10px;
-            }
-
-            h1 {
-                font-size: 40;
-                color: brown;
-            }
-
-            h3 {
-                font-size: 30;
-                color: rgb(48, 2, 18);
-            }
-
-            p {
-                font-size: 30;
-            }
-
-            a {
-                color: red;
-            }
-
-
-            body {
-
-
-                height: 100vh;
-                width: 100%;
-                background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(projimage.jpg);
-
-
-
-            }
-
-            textarea {
-                width: 30%;
-                height: 5%;
-            }
-
-
-            .name {
-                float: right;
-                color: red;
-                font-size: 35px;
-                border-color: black;
-            }
-
-
-
-            input[type='text'],
-            input[type='number'] {
-
-                padding: 8px;
-                margin-bottom: 10px;
-                border: 1px solid #ccc;
-                border-radius: 3px;
-            }
-
-            input[type='submit'] {
-                width: 15%;
-                padding: 10px;
-                border: none;
-                border-radius: 5px;
-                background-color: rgb(128, 128, 71);
-                color: #fff;
-                font-size: 16px;
-                font-weight: bold;
-                cursor: pointer;
-            }
-
-            table {
-                margin-top: 20px;
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            table,
-            th,
-            td {
-                border: 1px solid black;
-                padding: 10px;
-            }
-
-            .tableContainer {
-                max-width: 600px;
-                margin: 0 auto;
-                background-color: #f9f9f9;
-                padding: 20px;
-                border-radius: 5px;
-            }
-
-            * {
-
-                padding: 0;
-                font-family: "montserrat", sans-serif;
-
-            }
-        </style>
+        <styles>
+            <link rel="stylesheet" type="text/css" href="pharmacistPageStyles.css">
+        </styles>
 
     </head>
 
@@ -170,7 +21,7 @@ if ($_SESSION['loggedIn']) : ?>
             <nav>
                 <h2 class="logo">Honey<span>Meds</span></h2>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Contact</a></li>
@@ -195,7 +46,7 @@ if ($_SESSION['loggedIn']) : ?>
             $today = Date("Y-m-d");
             $view = "SELECT  prescription.PrescriptionDate ,prescription_drug.PrescriptionID,doctor.FirstName AS doctorName, patients.FirstName AS patientName FROM prescription_drug JOIN prescription ON 
             prescription_drug.prescriptionID = prescription.prescriptionID JOIN consultation ON prescription.ConsultationId = consultation.ConsultationId
-             JOIN patients ON consultation.PatientSSN = patients.PatientSSN Join doctor ON patients.PrimaryDoctor = doctor.DoctorSSN WHERE prescription.PrescriptionDate = ?";
+             JOIN patients ON consultation.PatientSSN = patients.PatientSSN Join doctor ON patients.PrimaryDoctor = doctor.DoctorSSN WHERE prescription.PrescriptionDate = ? AND ";
             $query = $conn->prepare($view);
             if (!$query) {
                 echo "An error occured" . $conn->error;

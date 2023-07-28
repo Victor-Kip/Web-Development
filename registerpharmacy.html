@@ -1,30 +1,45 @@
 <html>
   <head>
     <title>Pharmacy</title>
+    <styles>
+      <link rel="stylesheet" type="text/css" href="webstyles.css" />
+    </styles>
+    <style>
+      input[type="email"],
+      input[type="tel"] {
+        width: 50%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+    </style>
   </head>
   <body>
     <h1>Register your pharmacy with us and get acess to our online services</h1>
     <h2>Fill in the pharmacy's details below</h2>
-    <form action="registerpharmacy.php" method="post">
-      <p>
-        <label for="pharmacyName">Pharmacy's full Name:</label>
-        <input type="text" name="pharmacyname" id="pharmacyName" />
-      </p>
-      <p>
-        <label for="Location">Physical location</label>
-        <input type="text" name="location" id="Location" />
-      </p>
+    <div class="register">
+      <form action="registerpharmacy.php" method="post">
+        <p>
+          <label for="pharmacyName">Pharmacy's full Name:</label>
+        </p>
+        <p><input type="text" name="pharmacyname" id="pharmacyName" /></p>
+        <p>
+          <label for="Location">Physical location</label>
+        </p>
+        <p><input type="text" name="location" id="Location" /></p>
 
-      <p>
-        <label for="Email">email:</label>
-        <input type="email" name="email" id="Email" />
-      </p>
-      <p>
-        <label for="Phone">Phone number:</label>
-        <input type="tel" name="phone" id="Phone" />
-      </p>
+        <p>
+          <label for="Email">email:</label>
+        </p>
+        <p><input type="email" name="email" id="Email" /></p>
+        <p>
+          <label for="Phone">Phone number:</label>
+        </p>
+        <p><input type="tel" name="phone" id="Phone" /></p>
 
-      <input type="submit" value="Sign Up" />
-    </form>
+        <input type="submit" value="Sign Up" />
+      </form>
+    </div>
   </body>
 </html>

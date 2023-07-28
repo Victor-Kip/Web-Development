@@ -1,8 +1,8 @@
 <?php
-require_once("connect.php");
+require_once("connection.php");
 
 // Add patient
-if (isset($_POST['register'])) {
+if(isset($_POST['register'])) {
     $PatientSSN = $_POST['PatientSSN'];
     $FirstName = $_POST['FirstName'];
     $SecondName = $_POST['SecondName'];
@@ -14,7 +14,7 @@ if (isset($_POST['register'])) {
     $PrimaryDoctor = $_POST['PrimaryDoctor'];
     $Password = $_POST['Password'];
 
-
+    
 
     $query = "INSERT INTO Patients VALUES ('$PatientSSN', '$FirstName','$SecondName','$Address','$Age','$Height','$Weight','$Allergies','$PrimaryDoctor','$Password')";
 
@@ -45,11 +45,12 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />        
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="preconnect" href="http://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans: ital, wght@0,100; 0,30 0;0,400;0,500; 0,600; 0,700; 1, 100; 1, 200; 1,300; 1,400; 1,500; 1,600;1,700&family=Montserrat: wght@700; 800; 900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans: ital, wght@0,100; 0,30 0;0,400;0,500; 0,600; 0,700; 1, 100; 1, 200; 1,300; 1,400; 1,500; 1,600;1,700&family=Montserrat: wght@700; 800; 900&display=swap" 
+         rel="stylesheet">
 
 </head>
 

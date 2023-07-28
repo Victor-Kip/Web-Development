@@ -110,7 +110,7 @@
       <p>
         <label for="pharma">Pharmacy:</label>
         <select name="pharma" id="pharma">
-          <option value="">Choose your pharmacy</option>
+          <option value="">Select Pharmacy</option>
           <?php
           require_once("connect.php");
           $sql = "SELECT PharmacyName from Pharmacy";
@@ -118,10 +118,10 @@
           if ($result->num_rows > 0) {
             while ($pharmacy = $result->fetch_assoc()) {
               $pharmacyname = $pharmacy['PharmacyName'];
+              echo '<option value="' . $pharmacyname . '">' . $pharmacyname . '</option>';
             }
           }
           ?>
-          <option value="<?php echo $pharmacyname ?>"><?php echo $pharmacyname ?></option>
         </select>
       </p>
 

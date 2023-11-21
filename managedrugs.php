@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (isset($_SESSION["SSN"])) {
-    $doctorSSN = $_SESSION["SSN"];
+if (isset($_SESSION['AdminSSN'])) {
+    $loggedInUser = $_SESSION['AdminSSN'];
 } else {
     echo "error";
 }
@@ -18,7 +18,7 @@ if ($_SESSION['loggedIn']) : ?>
 
     <body>
         <div class="username">
-            <span><?php echo $_SESSION['name']; ?></span>
+            <span><?php echo $loggedInUser; ?></span>
             <a href="pharmalogout.php">LogOut</a>
         </div>
         <?php endif; ?><?php ?>
@@ -36,38 +36,9 @@ if ($_SESSION['loggedIn']) : ?>
         </div>
         <h1> Welcome to the Drug Management page.</h1>
         <h2>View available drugs</h2>
-        <form action="" method="post">
+        <form action="view_drugs.php" method="post" target="blank">
             <p> <input type="submit" name="viewToday" value="View Drugs"></p>
         </form>
-        <?php
-        if (isset($_POST['viewToday'])) {
-            require_once("connect.php");
-            echo "<br>";
-            $sql = "SELECT * FROM drug";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                echo "<div class='view-drugs-container'>";
-                echo "<table>";
-                echo "<tr><th>Drug</th><th>Formula</th><th>Size</th><th>Company</th><th>ManufacutreDate</th><th>ExpiryDate</th><th>Cost</th></tr>";
-
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row['TradeName'] . "</td>";
-                    echo "<td>" . $row['Formula'] . "</td>";
-                    echo "<td>" . $row['Size'] . "</td>";
-                    echo "<td>" . $row['Company'] . "</td>";
-                    echo "<td>" . $row['ManufacturingDate'] . "</td>";
-                    echo "<td>" . $row['ExpiryDate'] . "</td>";
-                    echo "<td>" . $row['Cost'] . "</td>";
-                    echo "</tr>";
-                }
-                echo "</table>";
-                echo "</div>";
-            } else {
-                echo "No drugs present";
-            }
-        }
-        ?>
         <h2>Add a new drug</h2>
         <form action="" method="post">
             <div class="drugs">
@@ -84,6 +55,9 @@ if ($_SESSION['loggedIn']) : ?>
                     <p> <label for="Company">Company:</label>
                         <input type="text" name="company" id="Company">
                     </p>
+                    <p> <label for="image">Photo Link:</label>
+                        <input type="text" name="image" id="image">
+                    </p>
                 </div>
                 <div class="centre">
                     <p> <label for="ManufactureDate">Manufacturing Date:</label>
@@ -95,6 +69,7 @@ if ($_SESSION['loggedIn']) : ?>
                     <p> <label for="Cost">Cost per unit:</label>
                         <input type="text" name="cost" id="Cost">
                     </p>
+
                 </div>
             </div>
             <input type="submit" name="addDrug" value="Add Drug">
@@ -103,7 +78,7 @@ if ($_SESSION['loggedIn']) : ?>
         <?php
         if (
             isset($_POST['drug']) && isset($_POST['formula']) && isset($_POST['size']) && isset($_POST['company']) && isset($_POST['manufacturedate']) &&
-            isset($_POST['expirydate']) &&  isset($_POST['cost']) && isset($_POST['addDrug'])
+            isset($_POST['expirydate']) &&  isset($_POST['cost']) && isset($_POST['image']) && isset($_POST['addDrug'])
         ) {
             require_once("connect.php");
             $drug = $_POST['drug'];
@@ -113,8 +88,9 @@ if ($_SESSION['loggedIn']) : ?>
             $manufacturedate = $_POST['manufacturedate'];
             $expirydate = $_POST['expirydate'];
             $cost = $_POST['cost'];
+            $image = $_POST['image'];
 
-            $insertdrug = "INSERT INTO drug (TradeName, Formula, Size, Company, ManufacturingDate, ExpiryDate, Cost) VALUES('$drug','$formula','$size','$company','$manufacturedate','$expirydate','$cost')";
+            $insertdrug = "INSERT INTO drug (TradeName, Formula, Size, Company, ManufacturingDate, ExpiryDate, Cost,image) VALUES('$drug','$formula','$size','$company','$manufacturedate','$expirydate','$cost','$image')";
             if ($conn->query($insertdrug)) {
                 echo "Drugs added successfully";
             } else {

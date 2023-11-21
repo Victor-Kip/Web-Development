@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['AdminSSN']) {
+if ($_SESSION['AdminSSN'] &&  $_SESSION['loggedIn']) {
     $loggedInUser = $_SESSION['AdminSSN'];
 } else {
     header("location: viewrecords.php");
@@ -161,7 +161,7 @@ if (isset($_GET['delete2'])) {
 
     <button type="button" name="Contractawards" onclick="window.location.href='contract.php';">Contract awards</button>
 
-
+    <p>Click<a href="managedrugs.php"=>here</a> to manage the drug records</p>
 
 </body>
 

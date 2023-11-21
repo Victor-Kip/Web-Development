@@ -9,7 +9,7 @@
 .hero{
   height: 100vh;
   width: 100%;
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(projimage.jpg); 
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(projimage.jpg);
   background-size: cover;
   background-position: center;
 }
@@ -35,6 +35,7 @@ nav ul li{
   list-style-type: none;
   display: inline-block;
   padding: 10px 20px;
+    position: relative;
 }
 
 nav ul li a{
@@ -47,7 +48,26 @@ nav ul li a:hover{
   color: #ea1538;
   transition: .3s;
 }
+.dropdown{
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    visibility: hidden;
+    z-index: 1;
+}
+li:hover ul.dropdown{
+    opacity: 1;
+    top: 40px;
+    visibility: visible;
+}
+.dropdown li{
+    float: none;
+    width: 100px;
+    display: flex;
+    align-items: center;
 
+}
 button{
   border: none;
   background: #ea1538;
@@ -125,7 +145,7 @@ button:hover{
     border-radius: 10px;
     cursor: pointer;
     transition: .4s ease;
-    
+
 }
 
 .content .cn a{
@@ -260,7 +280,7 @@ opacity: 0.9;
 .socialIcons a:hover{
 color: white;
 transition: 0.5s;
-} 
+}
 .footerNav{
 margin: 30px 0;
 }

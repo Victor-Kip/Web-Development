@@ -82,6 +82,7 @@ if (isset($_POST['login'])) {
         // Login successful
         session_start();
         $_SESSION['AdminSSN'] = $AdminSSN;
+        $_SESSION['loggedIn'] = true;
         header("Location: viewrecords.php"); // Redirect to success page
     } else {
         // Login failed

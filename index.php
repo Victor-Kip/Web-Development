@@ -26,6 +26,14 @@
                 <li><a href=" index.php#about-us">About</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="#">Drugs</a>
+                    <ul class="dropdown">
+                        <li><a href="">Tablets</a></li>
+                        <li><a href="">Powder</a></li>
+                        <li><a href="">Paste</a> </li>
+                    </ul>
+                </li>
+
             </ul>
             <button type="button" onclick="window.location.href = 'patlogin.php';">Login</button>
         </nav>
@@ -48,11 +56,11 @@
 
     <div class="about-section">
         <div class="inner-container">
-            <h1 id="about-us">About Us</hl>
-                <p class="text">
-                    Quality healthcare should e easily available to anyone despite their location. This is our goal in mind when offering you our services. We aim to make everyone feel at home and have the best online pharmacy tool at their fingertips. So, help us, help you out. Chill back and wait as our well qualified experts attend to you.
-                    HoneyMeds has you covered all round the clock.
-                </p>
+            <h1 id="about-us">About Us</h1>
+            <p class="text">
+                Quality healthcare should e easily available to anyone despite their location. This is our goal in mind when offering you our services. We aim to make everyone feel at home and have the best online pharmacy tool at their fingertips. So, help us, help you out. Chill back and wait as our well qualified experts attend to you.
+                HoneyMeds has you covered all round the clock.
+            </p>
 
 
         </div>

@@ -48,7 +48,7 @@ if (isset($_POST['login'])) {
 
     <div class="hero">
         <nav>
-            <h2 class="logo">Drug<span>Tool</span></h2>
+            <h2 class="logo">Hony<span>Meds</span></h2>
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href=" index.php#about-us">About</a></li>

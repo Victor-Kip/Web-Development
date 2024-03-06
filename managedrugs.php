@@ -40,34 +40,34 @@ if ($_SESSION['loggedIn']) : ?>
             <p> <input type="submit" name="viewToday" value="View Drugs"></p>
         </form>
         <h2>Add a new drug</h2>
-        <form action="" method="post">
+        <form action="http://localhost:3000/drugs" method="post">
             <div class="drugs">
                 <div class="left">
                     <p> <label for="drug">Drug Name:</label>
-                        <input type="text" name="drug" id="Drug">
+                        <input type="text" name="TradeName" id="Drug">
                     </p>
                     <p> <label for="Formula">Formula:</label>
-                        <input type="text" name="formula" id="Formula">
+                        <input type="text" name="Formula" id="Formula">
                     </p>
                     <p> <label for="Size">Size:</label>
-                        <input type="text" name="size" id="Size">
+                        <input type="text" name="Size" id="Size">
                     </p>
                     <p> <label for="Company">Company:</label>
-                        <input type="text" name="company" id="Company">
+                        <input type="text" name="Company" id="Company">
                     </p>
                     <p> <label for="image">Photo Link:</label>
-                        <input type="text" name="image" id="image">
+                        <input type="text" name="Image" id="Image">
                     </p>
                 </div>
                 <div class="centre">
                     <p> <label for="ManufactureDate">Manufacturing Date:</label>
-                        <input type="date" name="manufacturedate" id="ManufactureDate">
+                        <input type="date" name="ManufacturingDate" id="ManufactureDate">
                     </p>
                     <p> <label for="ExpiryDate">Expiry Date:</label>
-                        <input type="date" name="expirydate" id="ExpiryDate">
+                        <input type="date" name="ExpiryDate" id="ExpiryDate">
                     </p>
                     <p> <label for="Cost">Cost per unit:</label>
-                        <input type="text" name="cost" id="Cost">
+                        <input type="text" name="Cost" id="Cost">
                     </p>
 
                 </div>

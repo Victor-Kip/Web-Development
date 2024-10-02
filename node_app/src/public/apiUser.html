@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Api User</title>
+    <link rel="stylesheet" type="text/css" href="webstyles.css" />
+  </head>
+  <body>
+    <div class="hero">
+      <nav>
+        <h2 class="logo">Honey<span>Meds</span></h2>
+        <ul>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="index.php#about-us">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <h1>Enter your details</h1>
+    <div class="register">
+      <div class="left">
+        <form action="/register" method="post">
+          <p>
+            <label for="Name">Name:</label>
+            <input type="text" name="Name" id="Name" />
+          </p>
+          <p>
+            <label for="Email">Email:</label>
+            <input type="email" name="Email" id="Email" />
+          </p>
+          <p>
+            <label for="Gender">Gender:</label>
+            <input type="text" name="Gender" id="Gender" />
+          </p>
+          <p>
+            <label for="Password">Password:</label>
+            <input type="password" name="Password" id="Password" />
+          </p>
+          <input type="submit" value="Sign Up" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

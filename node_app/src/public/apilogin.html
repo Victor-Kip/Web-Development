@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="login.css" />
+  </head>
+  <body>
+    <div class="hero">
+      <nav>
+        <h2 class="logo">Honey<span>Meds</span></h2>
+        <ul>
+          <li><a href="index.php">Home</a></li>
+          <li><a href=" index.php#about-us">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="login">
+      <h1>API user login</h1>
+      <h2>Enter your details</h2>
+      <form action="/login" method="post">
+        <p><label for="email">Email:</label></p>
+        <p><input type="email" name="Email" id="Email" /></p>
+
+        <p><label for="Password">Password:</label></p>
+        <p><input type="Password" name="Password" id="Password" /></p>
+
+        <input type="submit" value="Login" />
+      </form>
+      <p>
+        Are you a new user? <a href="localhost:3000/register">Click here</a>
+      </p>
+    </div>
+  </body>
+</html>

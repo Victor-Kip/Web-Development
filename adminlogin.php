@@ -58,7 +58,7 @@
 
 
 
-        <p><a href="adminreg.php">Don't have an account? Register</a></p>
+        <p><a href="node_app/src/public/adminreg.html">Don't have an account? Register</a></p>
 
     </div>
 

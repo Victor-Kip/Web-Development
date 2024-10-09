@@ -1,5 +1,5 @@
 <?php
-require_once("connection.php");
+require_once("connect.php");
 
 // Add patient
 if (isset($_POST['register'])) {
@@ -9,7 +9,7 @@ if (isset($_POST['register'])) {
 
 
 
-    $query = "INSERT INTO Patients VALUES ('$PatientSSN', '$FirstName','$SecondName')";
+    $query = "INSERT INTO DaPat VALUES ('$PatientSSN', '$FirstName','$SecondName')";
 
     if (mysqli_query($conn, $query)) {
         echo "<script>

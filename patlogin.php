@@ -3,12 +3,12 @@
 require_once("connect.php");
 
 if (isset($_POST['login'])) {
+    $FirstName = $_POST['FirstName'];
     $PatientSSN = $_POST['PatientSSN'];
-    $Password = $_POST['Password'];
 
 
     // Query the database to check if the user exists
-    $query = "SELECT * FROM Patients WHERE PatientSSN='$PatientSSN' AND Password='$Password'";
+    $query = "SELECT * FROM DaPat WHERE  FirstName = '$FirstName' AND PatientSSN = '$PatientSSN'";
     $result = mysqli_query($conn, $query);
 
     if (mysqli_num_rows($result) == 1) {
@@ -76,7 +76,7 @@ if (isset($_POST['login'])) {
 
             <div class="textbox">
                 <i class="fa-solid fa-lock"></i>
-                <input type="password" name="Password" placeholder="Password">
+                <input type="text" name="FirstName" placeholder="FirstName">
                 <br><br>
 
             </div>
